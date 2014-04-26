@@ -15,12 +15,15 @@ class Config(object):
         self.configuration = {}
         configer = ConfigParser.SafeConfigParser()
         configer.read(self.config_file)
-        if 'dest' not in configer.sections():
+        if 'dest' not in configer.sections() or 'from' not in configer.sections():
             print 'invalid config file.'
             sys.exit(-1)
         self.configuration['server'] = configer.get('dest','server')
         self.configuration['username'] = configer.get('dest','username')
         self.configuration['password'] = configer.get('dest','password')
+        self.configuration['dest_path'] = configer.get('dest','path')
+        self.configuration['from_path'] = configer.get('from','path')
+        self.configuration['from_exclude'] = configer.get('from','exclude')
 
     def getConfig(self,config_name):
         if config_name in self.configuration.keys():
