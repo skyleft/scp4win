@@ -3,6 +3,7 @@
 
 import sqlite3
 import os
+import time
 
 class Recorder(object):
     def __init__(self):
@@ -13,7 +14,7 @@ class Recorder(object):
             self.cx = sqlite3.connect('.record.db')
             self.cu = self.cx.cursor()
             #create table
-            self.cu.execute('create table sync_record(id integer primary key autoincrement,file_name varchar(255) not null,sync_time datetime not null,modify_time datetime not null')
+            self.cu.execute('create table sync_record(id integer primary key autoincrement,file_name varchar(255),sync_time datetime,modify_time datetime)')
 
     def record(self,file_name,file_modify_time):
         self.cu.execute("insert into sync_record(file_name,sync_time,modify_time) values('%s','%s','%s')" % (file_name,time.strftime('%Y-%m-%d',time.localtime()),file_modify_time))
