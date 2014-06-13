@@ -17,7 +17,7 @@ try:
 except AttributeError:
     _fromUtf8 = lambda s: s
 
-class Ui_Dialog(object):
+class Config_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName(_fromUtf8("Dialog"))
         Dialog.resize(413, 335)
@@ -78,9 +78,3 @@ class Ui_Dialog(object):
         self.pushButton.setText(QtGui.QApplication.translate("Dialog", "确定", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_2.setText(QtGui.QApplication.translate("Dialog", "重置", None, QtGui.QApplication.UnicodeUTF8))
 
-app=QApplication(sys.argv)
-b=Ui_Dialog()
-d=QDialog()
-b.setupUi(d)
-d.show()
-app.exec_()

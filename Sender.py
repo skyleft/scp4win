@@ -23,10 +23,12 @@ class Sender(object):
         if op.exists(file_path):
             file_modify_time = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(os.stat(file_path).st_mtime))
             if not self.recorder.isSynced(file_path,file_modify_time):
-                new_file_path = self.dest_path+file_path.split(self.from_path)[1]
+                new_file_path = os.path.join(self.dest_path+'/',file_path.split(self.from_path+os.sep)[1])
+                new_file_path = new_file_path.replace('\\','/')
                 new_file_dir,new_file = op.split(new_file_path)
                 if not rexists(self.sftp,new_file_dir):
                     rmkdir(self.sftp,new_file_dir)
+                print 'uploading %s .....' % (file_path)
                 self.scp.put(file_path,new_file_path)
                 self.recorder.record(file_path,file_modify_time)
             else:
