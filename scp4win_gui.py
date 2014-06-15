@@ -12,6 +12,8 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 import sys
 import config_gui
+import main_gui
+import Config
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -30,6 +32,7 @@ class Ui_Dialog(object):
         self.pushButton_2 = QtGui.QPushButton(Dialog)
         self.pushButton_2.setGeometry(QtCore.QRect(160, 40, 79, 25))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
+        Dialog.connect(self.pushButton_2,QtCore.SIGNAL('clicked()'),self.startSync);
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -40,10 +43,16 @@ class Ui_Dialog(object):
         self.pushButton_2.setText(QtGui.QApplication.translate("Dialog", "开始同步", None, QtGui.QApplication.UnicodeUTF8))
 
     def showConfig(self):
-        config_dialog_ui = config_gui.Config_Dialog()
+        self.config_dialog_ui = config_gui.Config_Dialog()
         self.config_dialog = QDialog();
-        config_dialog_ui.setupUi(self.config_dialog)
+        config = Config.Config();
+        self.config_dialog_ui.setupUi(self.config_dialog,config)
         self.config_dialog.show()
+    
+    def startSync(self):
+        self.md = main_gui.Main_Dialog()
+        self.md.show()
+        self.md.startSync()
 
 
 app=QApplication(sys.argv)

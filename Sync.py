@@ -15,9 +15,10 @@ from_path = config.getConfig('from_path')
 from_exclude = config.getConfig('from_exclude')
 #print dest_path,from_path,from_exclude
 
-sender = Sender.Sender(server,username,password,dest_path,from_path)
 
-def sync(fp):    
+
+def sync(fp):
+    sender = Sender.Sender(server,username,password,dest_path,from_path)
     if os.path.isdir(fp):
         list_dirs = os.walk(fp)
         for root,dirs,files in list_dirs:
@@ -28,6 +29,9 @@ def sync(fp):
                     pass
                 else:
                     sender.send(os.path.join(root,f))
+
+def startSync():
+    sync(from_path)
 
 def main():
     sync(from_path)
